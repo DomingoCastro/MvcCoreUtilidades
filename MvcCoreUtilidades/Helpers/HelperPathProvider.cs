@@ -7,12 +7,20 @@
     public class HelperPathProvider
     {
         private IWebHostEnvironment hostEnvironment;
+        private string HostUrl;
 
-        public HelperPathProvider(IWebHostEnvironment hostEnvironment)
+
+        public HelperPathProvider(IWebHostEnvironment hostEnvironment,
+            IHttpContextAccessor accessor)
         {
             this.hostEnvironment = hostEnvironment;
+            this.HostUrl = accessor.HttpContext.Request.Host.Value;
         }
         
+        public string GetWebHostUrl()
+        {
+            return "https://" + this.HostUrl + "/";
+        }
         public string GetNameFolder (Folders folders)
         {
             string carpeta = "";

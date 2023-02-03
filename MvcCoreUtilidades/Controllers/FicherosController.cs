@@ -8,16 +8,11 @@ namespace MvcCoreUtilidades.Controllers
     {
         private HelperPathProvider helper;
 
-        //ESTA VARIABLE ES PARA RECUPERAR EL HOST DE MI WEB
-        private string HostUrl;
         
 
-        public FicherosController(HelperPathProvider helper,
-            IHttpContextAccessor accessor)
+        public FicherosController(HelperPathProvider helper)
         {
             this.helper= helper;
-            //RECUPERAMOS LA URL DE NUESTRO HOST
-            this.HostUrl = "https://" + accessor.HttpContext.Request.Host.Value + "/";
         }
         public IActionResult UploadFiles()
         {
@@ -36,7 +31,8 @@ namespace MvcCoreUtilidades.Controllers
             }
             ViewData["MENSAJE"] = "Fichero subido en: " + path;
             string folder = this.helper.GetNameFolder(Folders.Uploads);
-            ViewData["URLFICHERO"] = this.HostUrl + folder + "/" + fileName;
+            string hostUrl = this.helper.GetWebHostUrl();
+            ViewData["URLFICHERO"] = hostUrl + folder + "/" + fileName;
             return View();
         }
     }
