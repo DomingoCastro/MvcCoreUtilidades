@@ -1,0 +1,17 @@
+﻿
+<a asp-controller="AzureBlobs"
+asp-action="ListContainers">
+Volver a Containers</a>
+
+<hr/>
+
+<form method="post" enctype="multipart/form-data">
+<input type="file" name="file" class="form-control" required />
+<button class="btn btn-outline-dark">
+    Upload Blob
+</button>
+</form>
+
+<h2 style="color:blue">
+    @ViewData["MENSAJE"]
+</h2>

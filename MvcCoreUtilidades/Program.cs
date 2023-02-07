@@ -1,4 +1,5 @@
 using MvcCoreUtilidades.Helpers;
+using MvcCoreUtilidades.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<HelperPathProvider>();
 //ESTE OBJETO DEBE SER INDECTADO COMO Singleton, LO QUE QUIERE DECIR QUE SOLAMENTE HAGA UNA VEZ EL NEW
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+string azureKeys = builder.Configuration.GetConnectionString("AzureStorage");
+builder.Services.AddTransient<ServiceStorageFiles>(x => new ServiceStorageFiles(azureKeys));
+builder.Services.AddTransient<ServiceStorageBlobs>(x =>new ServiceStorageBlobs(azureKeys));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
