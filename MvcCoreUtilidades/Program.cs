@@ -12,6 +12,8 @@ string azureKeys = builder.Configuration.GetConnectionString("AzureStorage");
 builder.Services.AddTransient<ServiceStorageFiles>(x => new ServiceStorageFiles(azureKeys));
 builder.Services.AddTransient<ServiceStorageBlobs>(x =>new ServiceStorageBlobs(azureKeys));
 builder.Services.AddTransient<ServiceStorageTables>(x => new ServiceStorageTables(azureKeys));
+string urlApiToken = builder.Configuration.GetValue<string>("UrlApi:ApiToken");
+builder.Services.AddTransient<ServiceAzureAlumnos>(x => new ServiceAzureAlumnos(urlApiToken));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
