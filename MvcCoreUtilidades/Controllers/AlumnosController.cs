@@ -32,5 +32,26 @@ namespace MvcCoreUtilidades.Controllers
             await this.service.DeleteAlumnoAsync(token, partitionkey, rowkey);
             return RedirectToAction("Index");
         }
+        public ActionResult ToggleDarkMode()
+        {
+            var cookieValue = Request.Cookies["dark-mode"];
+            var isDarkModeEnabled = cookieValue != null && cookieValue == "true";
+            if (isDarkModeEnabled)
+            {
+                Response.Cookies.Append("dark-mode", "false", new CookieOptions
+                {
+                    Expires = DateTimeOffset.Now.AddDays(365)
+                });
+            }
+            else
+            {
+                Response.Cookies.Append("dark-mode", "true", new CookieOptions
+                {
+                    Expires = DateTimeOffset.Now.AddDays(365)
+                });
+            }
+            return RedirectToAction("Index");
+        }
+
     }
 }
